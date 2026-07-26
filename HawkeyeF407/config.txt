@@ -1,92 +1,128 @@
+# STM32F407 Pinout & Hardware Configuration
 
-================= IMU ====================
-GY-91 (MPU9250)    →   STM32F407
-VIN   ───────────► 3.3V
-GND   ───────────► GND
+This document contains the complete hardware pinout and peripheral configuration mapping for the STM32F407 flight controller board based on the schematics.
 
-SCL   ───────────► PB10
-SDA   ───────────► PB11
+## 1. IMU SPI & Compass / Magnetometer
+### IMU SPI (GY 91)
+____________________________________________________
+| GY-91| STM32F407 PINOUT|        Function         |
+|------|-----------------|-------------------------|
+|  SCL | PB13 / SPI2_SCK | SPI Clock		   |
+|  SDA | PC3 / SPI2_MOSI | SPI Master Out Slave In |
+|  SDO | PC2 / SPI2_MISO | SPI Master In Slave Out |
+|  NCS | PB12 / MPU_CS   | Chip Select             |
+|  CSB | PB14 / BARO_CS  | Barometer Chip Select   |
+|  3V3 | 3.3V            | Power Supply            |
+|  GND | GND             | Ground                  |
+----------------------------------------------------
 
-NCS   ───────────► 3.3V
-CSB   ───────────► 3.3V
-SDO   ───────────► GND
+### Compass QC (HMC5883L)
+_______________________
+| HMC5883L | STM32F407 |
+|----------|-----------|
+|   VIN    |    3.3V   |
+|   GND    |    GND    |
+|   SCL    |    PB10   |
+|   SDA    |    PB11   |
+------------------------
 
-
-=========== Serial_1 =============
-STM32F407	→ 	Telemetry
-PB7		→	USART1_RX
-PB6		→	USART1_TX
-
-=========== UART/SERIAL_2 =============
-STM32F407	→ 	GPS/Telemetry
-PA3		→	USART2_RX
-PA2		→	USART2_TX
-
-
-=========== UART_4 / SERIAL3  =============
-STM32F407	→ 	Hardware
-PA1		→	USART4_RX
-PA0		→	USART4_TX
-
-=========== UART_6/SERIAL4  =============
-STM32F407	→ 	Hardware
-PC7		→	USART6_RX
-PC6		→	USART6_TX
-
-============== ADC =============
-STM32F407	→ 	Hardware
-PC4		→	Battery Voltage Sense
-PC5		→	Battery Current Sense
-PB0		→	RSSI ADC
-PC0		→	Pressure / Airspeed Sensor ADC
-
-============== PWM ================
-Motor/Servo	→ 	STM32F407
-PWM1		→	PB8 (TIM4_CH3)  → SERVO1  → MOTOR1
-PWM2		→	PB5 (TIM3_CH2)  → SERVO2  → MOTOR2
-PWM3		→	PB4 (TIM3_CH1)  → SERVO3  → DISABEL
-PWM4		→	PB3 (TIM2_CH2)  → SERVO4  → MOTOR3
-PWM5		→	PA10 (TIM1_CH3) → SERVO5  → NONE
-PWM6		→	PA9 (TIM1_CH2)  → SERVO6  → NONE
-PWM7		→	PB15(TIM12_CH2) → SERVO7  → MOTOR4
-PWM8		→	PB14(TIM12_CH1) → SERVO8  → NONE
-PWM9		→	PA7 (TIM14_CH1) → SERVO9  → NONE
-PWM10		→	PA6 (TIM13_CH1) → SERVO10 → NONE
-PWM11		→	PB1 (TIM3_CH4)  → SERVO11 → NONE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-
-============= BUZZER =============
-STM32F407	→ 	Hardware
-PB9		→	Beeper / Alarm
-
-============== LED =============
-STM32F407	→ 	Hardware
-PB2		→	LED0 : blue / ACT
-PA5		→	LED1 : green / B/E
+## 2. UART Configurations
+_________________________________
+|  Port  | STM32F407 | Function |
+|--------|-----------|----------|
+| UART 1 |    PB7    | UART1_RX |
+|        |    PB6    | UART1_TX |
+|-------------------------------|
+| UART 2 |    PA3    | UART2_RX |
+|        |    PA2    | UART2_TX |
+|-------------------------------|
+| UART 4 |    PA1    | UART4_RX |
+|        |    PA0    | UART4_TX |
+|-------------------------------|
+| UART 5 |    PC7    | UART5_RX |
+|        |    PC6    | UART5_TX |
+|-------------------------------|
+| UART 6 |    PE0    | UART8_RX |
+|        |    PE1    | UART8_TX |
+---------------------------------
 
 
-| Index       | Port      | Keterangan    |
-| ----------- | --------- | ------------- |
-| SERIAL0     | OTG1      | USB           |
-| SERIAL1     | USART1    | PB6/PB7       |
-| SERIAL2     | USART2    | PA2/PA3       |
-| SERIAL3     | UART4     | PA0/PA1       |
-| SERIAL4     | USART6    | PC6/PC7       |
+## 3. GPS Modules
+### GPS Here 2
+| GPS | STM32F407 |
+|-----|-----------|
+| VCC |    5V     |
+| GND |    GND    |
+| TX  |    PA3    |
+| RX  |    PA2    |
+| SCL |    PB10   |
+| SDA |    PB11   |
+|    230400       |
+------------------
+
+### GPS NEO M8N
+|  GPS | STM32F407 |
+|------|-----------|
+|  VCC |   5V      |
+|  GND |   GND     |
+|  RX  |   PA2     |
+|  TX  |   PA1     |
+|  SCL |   PB10    |
+|  SDA |   PB11    |
+-------------------
+
+## 4. Receiver (RC)
+### FrSky / CRSF / Receiver (TMR NANO)
+| Receiver | STM32F407 |
+|----------|-----------|
+|   VCC    |    5V     | 
+|   GND    |    GND    |
+|   CH1    |    PC7    |
+|   CH2    |    PC6    | 
+-------------------------
+
+## 5. CAN Bus
+### CAN BUS (STM32 to CAN Module)
+| STM32F407 | CAN Module |
+|-----------|----------- |
+|    3.3V   |    VCC     |
+|    GND    |    GND     |
+|    PD1    |    CTX     |
+|    PD0    |    CRX     |
+
+### CAN Module to Hardware (TRANSCEIVER / SN65HVD230)
+| SN65HVD230 | Hardware  |
+|------------|-----------|
+|    CANH    | CAN BUS H |
+|    CANL    | CAN BUS L |
 
 
-============== GPS SERIAL3 UART4 =============
-GPS NEO M8N  ───────────►   STM32F407
-VCC → RED    → RED    ───────────► 5V
-GND → BLACK  → YELLOW ───────────► GND
-RX  → WHITE  → GREEN  ───────────► PA0
-TX  → YELLOW → ORANGE ───────────► PA1 
-SCL → GREEN  → BLACK  ───────────► PB10
-SDA → BLUE   → BROWN  ───────────► PB11
-BAUDRATE  ───────────► 230400 
+## 6. ADC & Miscellaneous Pins
+### ADC (Analog Inputs)
+| STM32F407 |    Function     |
+|-----------|-----------------|
+|    PC4    | Battery Voltage |
+|    PC5    | Battery Current |
+|    PB0    |    RSSI ADC     |
+|    PC0    |    Airspeed     |
 
-============== RC SERIAL4 UART6 =============
-RC   ───────────►   STM32F407
-VCC  ───────────► 5V
-GND  ───────────► GND
-CH1  ───────────► PC7
-CH2  ───────────► PC6 
-BAUDRATE  ───────────► 230400 
+### Miscellaneous (BUZZER & LED)
+| STM32 Pin | Function |
+|-----------|----------|
+|    PB5    |   Buzzer |
+|    PB2    |   LED0   |
+|    PA5    |   LED1   |
+
+## 7. PWM Actuators & Outputs
+________________________________________________
+|  PWM | STM32 Pin (Timer) |   ESC  | Function |
+|------|-------------------|--------|----------|
+| PWM1 | PB3 (TIM2_CH2)    | ESCV01 |  SERVO1  |
+| PWM2 | PA15 (TIM2_CH1)   | ESCV02 |  SERVO2  |
+| PWM3 | PB15 (TIM2_CH2)   | ESCV03 |  SERVO3  |
+| PWM4 | PB14 (TIM2_CH1)   | ESCV04 |  SERVO4  |
+| AUX1 | PA7 (TIM14_CH1)   | ESCV05 |  SERVO5  |
+| AUX2 | PA6 (TIM3_CH1)    | ESCV06 |  SERVO6  |
+| AUX3 | PB1 (TIM3_CH4)    | ESCV07 |  SERVO7  |
+| AUX4 | PC9 (TIM8_CH4)    | ESCV08 |  SERVO8  |
+
