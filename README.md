@@ -169,7 +169,11 @@ Repositori ini mengikuti lisensi yang sama dengan proyek **ArduPilot**, kecuali 
 
 # Author
 **Erwin Setyawan Wicaksono**
+
 **email : erwinjosz123@gmail.com** 
+
 **Technology Development Division**
+
 **Dewo Robotic UNESA** 
+
 **Custom Flight Controller Development for UAV-Multicopter**
