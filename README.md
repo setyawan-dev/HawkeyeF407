@@ -107,7 +107,7 @@ Sensor lain yang didukung ArduPilot dapat ditambahkan dengan memodifikasi file `
 Clone repositori ini ke dalam direktori `libraries/AP_HAL_ChibiOS/hwdef/` pada source code ArduPilot.
 
 ```bash
-git clone https://github.com/username/HawkeyeF407.git
+https://github.com/setyawan-dev/HawkeyeF407.git
 ```
 
 Masuk ke direktori ArduPilot.

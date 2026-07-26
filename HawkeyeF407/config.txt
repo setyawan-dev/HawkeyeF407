@@ -1,0 +1,92 @@
+
+================= IMU ====================
+GY-91 (MPU9250)    →   STM32F407
+VIN   ───────────► 3.3V
+GND   ───────────► GND
+
+SCL   ───────────► PB10
+SDA   ───────────► PB11
+
+NCS   ───────────► 3.3V
+CSB   ───────────► 3.3V
+SDO   ───────────► GND
+
+
+=========== Serial_1 =============
+STM32F407	→ 	Telemetry
+PB7		→	USART1_RX
+PB6		→	USART1_TX
+
+=========== UART/SERIAL_2 =============
+STM32F407	→ 	GPS/Telemetry
+PA3		→	USART2_RX
+PA2		→	USART2_TX
+
+
+=========== UART_4 / SERIAL3  =============
+STM32F407	→ 	Hardware
+PA1		→	USART4_RX
+PA0		→	USART4_TX
+
+=========== UART_6/SERIAL4  =============
+STM32F407	→ 	Hardware
+PC7		→	USART6_RX
+PC6		→	USART6_TX
+
+============== ADC =============
+STM32F407	→ 	Hardware
+PC4		→	Battery Voltage Sense
+PC5		→	Battery Current Sense
+PB0		→	RSSI ADC
+PC0		→	Pressure / Airspeed Sensor ADC
+
+============== PWM ================
+Motor/Servo	→ 	STM32F407
+PWM1		→	PB8 (TIM4_CH3)  → SERVO1  → MOTOR1
+PWM2		→	PB5 (TIM3_CH2)  → SERVO2  → MOTOR2
+PWM3		→	PB4 (TIM3_CH1)  → SERVO3  → DISABEL
+PWM4		→	PB3 (TIM2_CH2)  → SERVO4  → MOTOR3
+PWM5		→	PA10 (TIM1_CH3) → SERVO5  → NONE
+PWM6		→	PA9 (TIM1_CH2)  → SERVO6  → NONE
+PWM7		→	PB15(TIM12_CH2) → SERVO7  → MOTOR4
+PWM8		→	PB14(TIM12_CH1) → SERVO8  → NONE
+PWM9		→	PA7 (TIM14_CH1) → SERVO9  → NONE
+PWM10		→	PA6 (TIM13_CH1) → SERVO10 → NONE
+PWM11		→	PB1 (TIM3_CH4)  → SERVO11 → NONE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+============= BUZZER =============
+STM32F407	→ 	Hardware
+PB9		→	Beeper / Alarm
+
+============== LED =============
+STM32F407	→ 	Hardware
+PB2		→	LED0 : blue / ACT
+PA5		→	LED1 : green / B/E
+
+
+| Index       | Port      | Keterangan    |
+| ----------- | --------- | ------------- |
+| SERIAL0     | OTG1      | USB           |
+| SERIAL1     | USART1    | PB6/PB7       |
+| SERIAL2     | USART2    | PA2/PA3       |
+| SERIAL3     | UART4     | PA0/PA1       |
+| SERIAL4     | USART6    | PC6/PC7       |
+
+
+============== GPS SERIAL3 UART4 =============
+GPS NEO M8N  ───────────►   STM32F407
+VCC → RED    → RED    ───────────► 5V
+GND → BLACK  → YELLOW ───────────► GND
+RX  → WHITE  → GREEN  ───────────► PA0
+TX  → YELLOW → ORANGE ───────────► PA1 
+SCL → GREEN  → BLACK  ───────────► PB10
+SDA → BLUE   → BROWN  ───────────► PB11
+BAUDRATE  ───────────► 230400 
+
+============== RC SERIAL4 UART6 =============
+RC   ───────────►   STM32F407
+VCC  ───────────► 5V
+GND  ───────────► GND
+CH1  ───────────► PC7
+CH2  ───────────► PC6 
+BAUDRATE  ───────────► 230400 
